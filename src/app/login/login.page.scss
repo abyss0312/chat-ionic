@@ -1,0 +1,86 @@
+.header-ios ion-toolbar:last-of-type {
+    --border-width: 0px;
+   --background: white;
+ }
+
+ .header-md:after {
+   background: none;
+ }
+
+ .main_content_div {
+   .textbox {
+     margin-bottom: 30px;
+     margin-top: 20px;
+     ion-input {
+       border: 1px solid lightgray;
+       border-radius: 10px;
+       padding: 0px 7px !important;
+       font-family: "medium";
+       margin: 5px 0px;
+     }
+     ion-label {
+       font-family: "semi-bold";
+       font-size: 14px;
+     }
+   }
+
+   .heading{
+     font-size: 22px;
+     font-family: "semi-bold";
+     padding: 10px 14px;
+     display: block;
+   }
+
+   .btn {
+     display: flex;
+     padding: 14px;
+     margin: 20px 0px;
+     ion-button {
+       width: 100%;
+       border-radius: 10px !important;
+       margin: 7px;
+     }
+   }
+
+   .currency_accet {
+     display: flex;
+     flex-direction: row;
+     padding: 14px;
+     .img {
+       width: 40px;
+       height: 40px;
+       margin-right: 10px;
+     }
+     .detail {
+       width: 100%;
+       display: flex;
+       flex-direction: column;
+       .up_div {
+         display: flex;
+         justify-content: space-between;
+         .title {
+           font-family: "semi-bold";
+           font-size: 16px;
+         }
+         .price {
+           font-family: "semi-bold";
+           font-size: 16px;
+         }
+       }
+       .down_div {
+         display: flex;
+         justify-content: space-between;
+         .type {
+           font-family: "medium";
+           font-size: 13px;
+           color: var(--ion-color-medium);
+         }
+         .status {
+           font-family: "semi-bold";
+           font-size: 13px;
+         }
+       }
+     }
+   }
+
+ }
