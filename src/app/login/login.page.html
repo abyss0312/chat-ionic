@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button color="grey">
+      <ion-button color="grey" (click)="Test()">
         <ion-icon name="chevron-back-outline"  ></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -13,16 +13,16 @@
   <div class="main_content_div">
 
     <div class="textbox">
-      <ion-label>Email</ion-label>
-      <ion-input type="email"></ion-input>
+      <ion-label>Username</ion-label>
+      <ion-input [(ngModel)]="login.username" type="email" ></ion-input>
     </div>
 
     <div class="textbox">
       <ion-label>Password</ion-label>
-      <ion-input type="password"></ion-input>
+      <ion-input [(ngModel)]="login.pass" type="password"></ion-input>
     </div>
 
-    <ion-button  expand="block" style="margin-top: 60px;">
+    <ion-button  expand="block" style="margin-top: 60px;" (click)="Login()">
       Log in
     </ion-button>
     <ion-button expand="block" fill="clear" shape="round" size="small">
@@ -35,7 +35,7 @@
   <ion-buttons class="footer_btn ion-justify-content-center">
     Dont have an account?
     <ion-button color="grey">
-      Sign up
+      Sign up {{(user$ | async)}}
     </ion-button>
   </ion-buttons>
 </ion-footer>

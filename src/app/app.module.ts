@@ -6,11 +6,14 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { StoreModule } from '@ngrx/store';
+import { UserReducer } from './state';
+import { SocketioService } from './services';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, StoreModule.forRoot({user:UserReducer})],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, SocketioService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
