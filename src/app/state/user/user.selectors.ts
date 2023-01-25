@@ -17,3 +17,7 @@ export const selectuserSession = createSelector(
     selectUser,
     (state:UserStore) => state.sessionId
 );
+export const selectuserFriends = createSelector(
+    selectUser,
+    (state:UserStore) => state.friends
+);

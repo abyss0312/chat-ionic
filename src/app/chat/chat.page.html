@@ -6,28 +6,19 @@
 
 <ion-content class="ion-padding">
   <ion-searchbar placeholder="Search Matches"></ion-searchbar>
-  <ion-label class="head_lbl">New Matches</ion-label>
-  <div class="match">
-    <div class="menu">
-      <div class="item" *ngFor="let item of [1,2,3,4,5,6,7,8,9,10]">
-        <ion-thumbnail>
-          <img src="assets/images/women.jpg" />
-        </ion-thumbnail>
-      </div>
-    </div>
-  </div>
+
   <div class="message">
     <ion-label class="first_lbl">Messages</ion-label>
-    <div class="circle">1</div>
+    <!-- <div class="circle">1</div> -->
   </div>
 
-  <div class="list" *ngFor="let item of [1,2,3,4,4,4,4,4,34,3]">
+  <div class="list" *ngFor="let item of (friends$ |async)">
     <ion-item lines="none">
       <ion-thumbnail>
-        <img src="assets/images/girl.jpg" />
+        <img src="assets/icon/favicon.png" />
       </ion-thumbnail>
       <div class="msg">
-        <ion-label class="name">Leslie Alexandar</ion-label>
+        <ion-label class="name">{{item.username}}</ion-label>
         <ion-label class="msg_lbl">Hyyy</ion-label>
       </div>
       <ion-label slot="end" style="font-size: 14px; margin-top: 0;">18:36</ion-label>

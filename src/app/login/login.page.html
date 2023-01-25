@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button color="grey" (click)="Test()">
+      <ion-button color="grey" [routerLink]="['/chat']">
         <ion-icon name="chevron-back-outline"  ></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -30,6 +30,10 @@
     </ion-button>
   </div>
 </ion-content>
+
+  <div  *ngFor="let item of (friend$ |async)">
+    {{item.username}}
+  </div>
 
 <ion-footer class="ion-padding">
   <ion-buttons class="footer_btn ion-justify-content-center">

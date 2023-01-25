@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { AnyCatcher } from "rxjs/internal/AnyCatcher";
 import { io } from 'socket.io-client';
-import { removeUser } from "../state";
+import { addFriends, addOneFriend, removeUser } from "../state";
 
 
 
@@ -27,6 +27,8 @@ export class SocketioService {
         this.getUsers();
         this.newUsersConnected();
         this.RecieveMessage();
+
+        return this.users;
     }
 
     newUsersConnected(){
@@ -43,11 +45,12 @@ export class SocketioService {
                 })
             }
             else{
-                this.users.push(user);
+                user.self = false;
+                this.store.dispatch(addOneFriend({friend:user}));
             }
            
             
-            console.log(this.users);
+           
           });
     }
  
@@ -58,16 +61,12 @@ export class SocketioService {
               user.self = user.userID === this.socket.id;
             if(user.self == false){
                 this.userId = user.userID;
+                this.users.push(user);
             }
             });
-            // put the current user first, and then sort by username
-            this.users = users.sort((a:any, b:any) => {
-              if (a.self) return -1;
-              if (b.self) return 1;
-              if (a.username < b.username) return -1;
-              return a.username > b.username ? 1 : 0;
-            });
-            console.log(this.users);
+       
+            this.store.dispatch(addFriends({friends:this.users}));
+           
           });
      
     }
