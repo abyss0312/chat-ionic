@@ -15,20 +15,15 @@ export class SocketioService {
     private userId:string = '';
     private users:any = [];
   
-    constructor(private store:Store<any>) {
-        
-      }
+    constructor(private store:Store<any>) {}
   
     setupSocketConnection(username:string) {
     
         this.socket = io('http://localhost:3002');
         this.socket.auth = {username};
-    
         this.getUsers();
-        this.newUsersConnected();
-        this.RecieveMessage();
+    
 
-        return this.users;
     }
 
     newUsersConnected(){
@@ -45,8 +40,9 @@ export class SocketioService {
                 })
             }
             else{
-                user.self = false;
+               
                 this.store.dispatch(addOneFriend({friend:user}));
+                this.users = [...this.users,user];
             }
            
             
@@ -70,11 +66,11 @@ export class SocketioService {
           });
      
     }
-    sendMessage(content:string){
+    sendMessage(content:string,id:string){
         console.log(this.userId);
         this.socket.emit("private_message", {
             content,
-            to: this.userId,
+            to: id,
           });
     }
     RecieveMessage(){

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Friends } from '../models';
@@ -14,11 +15,17 @@ export class ChatPage implements OnInit {
 
   friends$:Observable<Friends[]> = new Observable<Friends[]>();
 
-  constructor(private store:Store<any>,private socketservice:SocketioService) { }
+  constructor(private store:Store<any>,private socketservice:SocketioService, private route: Router) { }
 
   ngOnInit() {
+
+    this.socketservice.getUsers();
     this.socketservice.newUsersConnected();
     this.friends$ = this.store.select(selectuserFriends);
+  }
+
+  goToChat(item:Friends){
+    this.route.navigate(['/chat-page'], { state: item });
   }
 
 }

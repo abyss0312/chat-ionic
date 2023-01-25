@@ -15,7 +15,6 @@ import { addUser,selectuserName, selectUser, selectuserFriends, addFriends} from
 export class LoginPage implements OnInit {
 
   user$:Observable<string> = new Observable<string>()
-  friend$:Observable<Friends[]> = new  Observable<any[]>();
   private socket: SocketioService;
   login: any = { username: '', pass: '' };
 
@@ -27,7 +26,6 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   
     this.user$ = this.store.select(selectuserName);
-    this.friend$ = this.store.select(selectuserFriends);
   }
 
  async Login() {
@@ -35,7 +33,7 @@ export class LoginPage implements OnInit {
 
   this.socket.setupSocketConnection(this.login.username);
 
-  //this.socket.sendMessage('hola soy el evento');
+  
 
     //this.store.dispatch(addUser({username:"john",Id:1}));
  }
