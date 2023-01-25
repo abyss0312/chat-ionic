@@ -2,7 +2,9 @@ import { Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { AnyCatcher } from "rxjs/internal/AnyCatcher";
 import { io } from 'socket.io-client';
-import { addFriends, addOneFriend, removeUser } from "../state";
+import { ChatModel } from "../models";
+import { addFriends, addMessage, addOneFriend, removeUser } from "../state";
+import { getCurrentTime } from "../utils";
 
 
 
@@ -15,12 +17,16 @@ export class SocketioService {
     private userId:string = '';
     private users:any = [];
   
-    constructor(private store:Store<any>) {}
+    constructor(private store:Store<any>) {
+
+      this.socket = io('http://localhost:3002',{autoConnect:false});
+    }
   
     setupSocketConnection(username:string) {
     
-        this.socket = io('http://localhost:3002');
+       
         this.socket.auth = {username};
+        this.socket.connect();
         this.getUsers();
     
 
@@ -77,15 +83,22 @@ export class SocketioService {
         this.socket.on("private_message", ({ content, from }:any) => {
             console.log(content);
             console.log(from);
+            var chat:ChatModel = {
+              content:content,
+              self:false,
+              time:getCurrentTime()
+            }
             for (let i = 0; i < this.users.length; i++) {
             const user:any = this.users[i];
               if (user.userID === from) {
-                user.messages.push({
-                  content,
-                  fromSelf: false,
-                });
+
+                this.store.dispatch(addMessage({message:{id:from,message:chat}}))
+                // user.messages.push({
+                //   content,
+                //   fromSelf: false,
+                // });
                 if (user.userID !== this.socket.id) {
-                  user.hasNewMessages = true;
+                 // user.hasNewMessages = true;
                 }
                 break;
               }

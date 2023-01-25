@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { RouteProtected } from './utils';
 
 const routes: Routes = [
   {
@@ -13,11 +14,13 @@ const routes: Routes = [
   },
   {
     path: 'chat',
-    loadChildren: () => import('./chat/chat.module').then( m => m.ChatPageModule)
+    loadChildren: () => import('./chat/chat.module').then( m => m.ChatPageModule),
+    canActivate:[RouteProtected]
   },
   {
     path: 'chat-page',
-    loadChildren: () => import('./chat-page/chat-page.module').then( m => m.ChatPagePageModule)
+    loadChildren: () => import('./chat-page/chat-page.module').then( m => m.ChatPagePageModule),
+    canActivate:[RouteProtected]
   },
   {
     path: 'login',

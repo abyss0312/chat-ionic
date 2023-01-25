@@ -9,6 +9,11 @@ export const selectuserName = createSelector(
     selectUser,
     (state:UserStore) => state.username
 );
+export const selectuserActive = createSelector(
+    selectUser,
+    (state:UserStore) => state.isActive
+);
+
 export const selectuserId = createSelector(
     selectUser,
     (state:UserStore) => state.Id
@@ -20,4 +25,9 @@ export const selectuserSession = createSelector(
 export const selectuserFriends = createSelector(
     selectUser,
     (state:UserStore) => state.friends
+);
+
+export const selectuserMessage = createSelector(
+    selectUser,
+    (state:UserStore) => state.messages
 );
