@@ -20,6 +20,7 @@
       <div class="msg">
         <ion-label class="name">{{item.username}}</ion-label>
         <!-- <ion-label class="msg_lbl">Hyyy</ion-label> -->
+        <ion-label *ngIf="item.connected" class="status">Online</ion-label>
       </div>
       <!-- <ion-label slot="end" style="font-size: 14px; margin-top: 0;">18:36</ion-label> -->
     </ion-item>

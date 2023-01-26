@@ -3,7 +3,7 @@ import { Store } from "@ngrx/store";
 import { AnyCatcher } from "rxjs/internal/AnyCatcher";
 import { io } from 'socket.io-client';
 import { ChatModel } from "../models";
-import { addFriends, addMessage, addOneFriend, removeUser } from "../state";
+import { addFriends, addMessage, addOneFriend, connectedFriend, removeUser } from "../state";
 import { getCurrentTime } from "../utils";
 
 
@@ -28,6 +28,7 @@ export class SocketioService {
         this.socket.auth = {username};
         this.socket.connect();
         this.getUsers();
+        this.usersDisconected();
     
 
     }
@@ -37,8 +38,10 @@ export class SocketioService {
         
         this.socket.on("user connected", (user:any) => {
             const exist = this.users.find((i:any) => i.username == user.username);
+            user.connected = true;
             if(exist != undefined){
                 this.users.forEach((i:any) => {
+
                     if(i.username == user.username){
                         i.userID = user.userID ;
 
@@ -54,6 +57,18 @@ export class SocketioService {
             
            
           });
+
+
+    }
+
+    usersDisconected(){
+      this.socket.on("disconnect_user", (id:string) => {
+          this.store.dispatch(connectedFriend({connected:false,id:id}))
+      });
+    }
+
+    disconneted(){
+      this.socket.disconnect();
     }
  
     getUsers(){
@@ -61,8 +76,10 @@ export class SocketioService {
             console.log('usuario connectado');
             users.forEach((user:any) => {
               user.self = user.userID === this.socket.id;
+              user.connected = true;
             if(user.self == false){
                 this.userId = user.userID;
+                
                 this.users.push(user);
             }
             });
@@ -89,21 +106,17 @@ export class SocketioService {
               time:getCurrentTime()
             }
             for (let i = 0; i < this.users.length; i++) {
+              console.log(this.users[i]);
             const user:any = this.users[i];
               if (user.userID === from) {
-
+                console.log('hey')
                 this.store.dispatch(addMessage({message:{id:from,message:chat}}))
-                // user.messages.push({
-                //   content,
-                //   fromSelf: false,
-                // });
+
                 if (user.userID !== this.socket.id) {
                  // user.hasNewMessages = true;
                 }
                 break;
               }
-
-            console.log(user);
             }
 
           });

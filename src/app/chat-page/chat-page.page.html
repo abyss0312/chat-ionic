@@ -1,13 +1,13 @@
 <ion-header mode="md">
   <ion-toolbar>
     <ion-item lines="none">
-      <ion-icon name="chevron-back-outline"  style="margin-right: 10px;"></ion-icon>
+      <ion-icon name="chevron-back-outline"  style="margin-right: 10px;" [routerLink]="'/chat'"></ion-icon>
       <ion-avatar>
         <img src="assets/icon/favicon.png" style="margin-left: 5px;" />
       </ion-avatar>
       <div class="div_lbl">
         <ion-label class="name_lbl">{{username}}</ion-label>
-        <ion-label class="status">Online</ion-label>
+        <!-- <ion-label class="status">Online</ion-label> -->
       </div>
       <ion-icon slot="end" name="ellipsis-vertical-outline"></ion-icon>
     </ion-item>
@@ -40,7 +40,7 @@
   <ion-toolbar>
     <ion-item lines="none">
       <ion-icon name="happy-outline" style="margin-right: 12px;"></ion-icon>
-      <ion-input type="text" placeholder="Write a message..." [(ngModel)]="message"></ion-input>
+      <ion-input type="text" placeholder="Write a message..." [(ngModel)]="message" (keydown.enter)="sendMessage()"></ion-input>
       <ion-icon name="paper-plane" style="margin-right: 10px;" class="send" color="light" (click)="sendMessage()"></ion-icon>
     </ion-item>
   </ion-toolbar>

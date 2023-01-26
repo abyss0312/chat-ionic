@@ -35,8 +35,10 @@ export class ChatPagePage implements OnInit {
     this.socket.RecieveMessage();
 
     this.store.select(selectuserMessage).subscribe(mes => {
-      if(mes.length > 0){
-        this.messages.push(mes[mes.length -1].message);
+
+      var newMessage = mes.find(i => i.id == this.id);
+      if( newMessage != undefined ){
+        this.messages.push(newMessage.message[newMessage.message.length -1]);
       }
       
     })
@@ -53,7 +55,7 @@ export class ChatPagePage implements OnInit {
     console.log(chat)
     this.socket.sendMessage(this.message,this.id)
     this.messages.push(chat);
- 
+    this.message='';
   }
 
 }
