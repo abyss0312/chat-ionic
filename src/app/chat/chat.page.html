@@ -12,7 +12,7 @@
     <!-- <div class="circle">1</div> -->
   </div>
 
-  <div class="list" *ngFor="let item of (friends$ |async)">
+  <div class="list" *ngFor="let item of friends">
     <ion-item lines="none"  (click)="goToChat(item)">
       <ion-thumbnail>
         <img src="assets/icon/favicon.png" />

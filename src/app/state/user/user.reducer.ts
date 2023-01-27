@@ -52,12 +52,13 @@ export const UserReducer = createReducer(
             let friends:Friends[] = [...state.friends];
             const newFriendConnected = friends.map(obj => {
                 if (obj.userID === id) {
-                    obj.connected = connected;
-                  return obj ;
+                   
+                  return {...obj, connected:connected} ;
                 }
               
                 return obj;
               }); 
+
               friends = newFriendConnected;
         return {
             ...state,

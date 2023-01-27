@@ -62,8 +62,9 @@ export class SocketioService {
     }
 
     usersDisconected(){
-      this.socket.on("disconnect_user", (id:string) => {
-          this.store.dispatch(connectedFriend({connected:false,id:id}))
+      this.socket.on("disconnect_user", (value:any) => {
+        console.log(value);
+          this.store.dispatch(connectedFriend({connected:false,id:value.id}))
       });
     }
 

@@ -13,7 +13,7 @@ import { selectuserFriends } from '../state';
 })
 export class ChatPage implements OnInit {
 
-  friends$:Observable<Friends[]> = new Observable<Friends[]>();
+  friends:Friends[] =[];
 
   constructor(private store:Store<any>,private socketservice:SocketioService, private route: Router) { }
 
@@ -21,7 +21,10 @@ export class ChatPage implements OnInit {
 
     this.socketservice.getUsers();
     this.socketservice.newUsersConnected();
-    this.friends$ = this.store.select(selectuserFriends);
+    this.store.select(selectuserFriends).subscribe(friend => {
+
+        this.friends = friend;
+    });
   }
 
   goToChat(item:Friends){
