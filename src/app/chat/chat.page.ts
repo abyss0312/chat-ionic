@@ -28,8 +28,8 @@ export class ChatPage implements OnInit {
   }
 
   goToChat(item:Friends){
-    //this.route.navigate(['/chat-page'], { state: item });
-    this.socketservice.disconneted();
+    this.route.navigate(['/chat-page'], { state: item });
+    //this.socketservice.disconneted();
   }
 
 }

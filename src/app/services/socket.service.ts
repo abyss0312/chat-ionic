@@ -37,6 +37,7 @@ export class SocketioService {
         
         
         this.socket.on("user connected", (user:any) => {
+          console.log(user);
             const exist = this.users.find((i:any) => i.username == user.username);
             user.connected = true;
             if(exist != undefined){
@@ -74,7 +75,7 @@ export class SocketioService {
  
     getUsers(){
         this.socket.on("users", (users:any) => {
-            console.log('usuario connectado');
+            console.log(users);
             users.forEach((user:any) => {
               user.self = user.userID === this.socket.id;
               user.connected = true;
